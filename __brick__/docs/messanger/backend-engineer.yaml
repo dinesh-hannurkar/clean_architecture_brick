@@ -1,0 +1,188 @@
+- timestamp: "[2026-01-22 05:26 PM]"
+  from: product-owner
+  to: backend-engineer
+  task_id: "BE-001"
+  priority: "HIGH"
+  task: "Establish Data Layer Structure and Repository Implementations"
+  details: |
+    Set up the foundational data layer for Project App:
+    1. Create data layer folder structure
+    2. Implement base repository pattern
+    3. Set up remote data source abstractions (API clients)
+    4. Set up local data source abstractions
+    5. Configure HTTP client with interceptors (auth, logging, error handling)
+    6. Implement data source adapters for third-party packages
+    7. Create base models and mappers (DTO to Entity)
+    8. Set up caching strategy (on-demand only)
+    9. Implement network connectivity checking
+  acceptance_criteria:
+    - Data layer follows Clean Architecture boundaries
+    - Repository implementations use dependency injection
+    - All third-party packages wrapped in adapters
+    - HTTP client configured with proper error handling
+    - Data mappers are tested and validated
+  dependencies: ["API-001"]
+  estimated_effort: "4-5 hours"
+- timestamp: "[2026-01-23 10:16 AM]"
+  from: api-architect
+  to: backend-engineer
+  task_id: "API-001"
+  status: "COMPLETED"
+  blocking_task: "BE-001"
+  message: |
+    📢 DEPENDENCY RESOLVED: API-001 is complete, you can now proceed with BE-001
+    
+    🎯 ASSIGNED TASK: Implement AuthRepository in data layer
+    
+    The domain layer contracts are now ready for implementation:
+    
+    📋 WHAT YOU NEED TO IMPLEMENT:
+    1. AuthRepositoryImpl (lib/data/repositories/auth_repository_impl.dart)
+       - Implement the AuthRepository interface
+       - Use remote data source for API calls
+       - Convert exceptions to Failure types
+    
+    2. Remote Data Source (lib/data/datasources/auth_remote_data_source.dart)
+       - Implement Google Sign-In API integration
+       - Handle authentication tokens
+       - Manage token refresh logic
+    
+    3. Data Models (lib/data/models/)
+       - UserModel extends User
+       - AuthTokenModel extends AuthToken
+       - Implement fromJson/toJson serialization
+    
+    📚 REFERENCE DOCUMENTATION:
+    - Domain layer structure: docs/architecture/domain-layer.md
+    - Error handling: docs/architecture/error-handling.md
+    - DTO conventions: docs/api/dto-conventions.md
+    
+    🔑 KEY REQUIREMENTS:
+    - Repository must return Either<Failure, T>
+    - Convert all exceptions to appropriate Failure types
+    - Use dependency injection for data sources
+    - Follow DTO naming conventions (snake_case JSON, camelCase Dart)
+    - Wrap third-party packages in adapters
+    
+    ✅ DOMAIN CONTRACTS AVAILABLE:
+    - AuthRepository interface: lib/domain/repositories/auth_repository.dart
+    - User entity: lib/domain/entities/user.dart
+    - AuthToken entity: lib/domain/entities/auth_token.dart
+    - Failure types: lib/domain/failures/failure.dart
+    
+    Ready to start BE-001!
+    
+    Role: API Architect
+- timestamp: "[2026-01-23 10:42 AM]"
+  from: backend-engineer
+  to: backend-engineer
+  task_id: "BE-001"
+  status: "COMPLETED"
+  message: |
+    ✅ TASK COMPLETED: BE-001 - Establish Data Layer Structure
+    
+    📦 DELIVERABLES:
+    - AuthRepositoryImpl with exception-to-failure mapping
+    - AuthRemoteDataSource with Google Sign-In integration
+    - Data models: UserModel, AuthTokenModel (with JSON serialization)
+    - HTTP client infrastructure with Dio
+    - Dependency injection setup using GetIt
+    - 51 unit tests (all passing ✅)
+    
+    🎯 VERIFICATION:
+    - All tests pass: flutter test test/data/
+    - Code analysis: 0 critical issues
+    - Architecture compliance: ✅ Clean Architecture principles followed
+    
+    📚 DOCUMENTATION:
+    - Implementation walkthrough created
+    - Integration guide for frontend developers
+    
+    Ready for frontend integration!
+    
+    Role: Backend Engineer
+- timestamp: "[2026-02-06 04:22 PM]"
+  from: product-owner
+  to: backend-engineer
+  task_id: "BE-INTL-BULK-001"
+  priority: "HIGH"
+  task: "Implement International Bulk Booking Data Layer"
+  details: |
+    Implement data sources and repository for International Bulk Booking.
+    
+    **Files to Modify**:
+    - `lib/features/shipping/data/datasources/shipping_remote_data_source.dart`
+    - `lib/features/shipping/data/repositories/shipping_repository_impl.dart`
+    
+    **Data Source Methods**:
+    ```dart
+    Future<List<InternationalRateDto>> getInternationalBulkRates(
+      List<InternationalRateRequestDto> requests,
+    );
+    
+    Future<PaymentInitDto> initInternationalBulkPayment(
+      List<int> tempBookingIds,
+      String paymentMethod,
+    );
+    ```
+    
+    **Endpoints** (to be confirmed by user):
+    - `POST /api/bulk/international/rates/`
+    - `POST /api/bulk/international/payment/init/`
+    
+    **Repository Implementation**:
+    - Implement the repository methods defined in API-INTL-BULK-001
+    - Proper error mapping (NetworkException → Failure)
+    - Handle batch rate requests efficiently
+    
+    ⚠️ NOTE: API endpoints not yet provided. Implement with mock data first, then update once endpoints are confirmed.
+  acceptance_criteria:
+    - Data sources call correct endpoints
+    - DTOs map correctly to domain entities
+    - Error handling follows Either<Failure, T> pattern
+    - Integration tests cover success and failure cases
+  dependencies: ["API-INTL-BULK-001"]
+  estimated_effort: "4-5 hours"
+- timestamp: "[2026-02-06 04:22 PM]"
+  from: product-owner
+  to: backend-engineer
+  task_id: "BE-INTL-BULK-002"
+  priority: "MEDIUM"
+  task: "Add Integration Tests for International Bulk Booking"
+  details: |
+    Create comprehensive integration tests for the international bulk booking data layer.
+    
+    **Tests to Create**:
+    - Repository tests for `getInternationalBulkRates`
+    - Repository tests for `initInternationalBulkPayment`
+    - Mock data source and verify proper error mapping
+    - Test batch processing logic
+    
+    Follow existing test patterns in `test/features/shipping/data/`.
+  acceptance_criteria:
+    - All tests pass
+    - Edge cases covered (empty list, single order, network failure)
+    - Code coverage > 90%
+  dependencies: ["BE-INTL-BULK-001"]
+  estimated_effort: "2-3 hours"
+
+- timestamp: "[2026-02-06 04:33 PM]"
+  from: backend-engineer
+  to: product-owner
+  task_id: "BE-INTL-BULK-001"
+  status: "COMPLETED"
+  message: |
+    ✅ DATA LAYER IMPLEMENTED: International Bulk Booking
+    
+    📦 DELIVERABLES:
+    1. Added `initIntlBulkBookingPayment()` to `ShippingRemoteDataSource` interface
+    2. Implemented data source method calling `/portal/intl/init-international-payments/`
+    3. Implemented repository method with proper error mapping
+    
+    📝 ENDPOINT USED:
+    - Same endpoint as single international: `/portal/intl/init-international-payments/`
+    - API will differentiate based on `booking_type: 'INTERNATIONAL BULK'`
+    
+    ✅ READY FOR: Frontend Developer to integrate BLoC and UI
+    
+    Role: Backend Engineer

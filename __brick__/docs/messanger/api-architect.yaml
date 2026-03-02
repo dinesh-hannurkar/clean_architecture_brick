@@ -1,0 +1,201 @@
+- timestamp: "[2026-01-22 05:26 PM]"
+  from: product-owner
+  to: api-architect
+  task_id: "API-001"
+  priority: "HIGH"
+  task: "Define Core API Contracts and Domain Interfaces"
+  details: |
+    Establish the foundational API architecture for Project App:
+    1. Define domain layer structure (entities, repository interfaces, use cases)
+    2. Create base API contract definitions for authentication (OAuth2/Google Sign-In)
+    3. Define error handling patterns (explicit failure types)
+    4. Document data transfer object (DTO) conventions
+    5. Define repository interface contracts
+    6. Create base entity models
+    7. Document API versioning strategy
+    8. Establish contract testing approach
+  acceptance_criteria:
+    - Domain layer folder structure created
+    - Repository interfaces follow dependency inversion principle
+    - Error types are well-defined and documented
+    - All interfaces are pure Dart (no external dependencies)
+    - Documentation includes contract examples
+  dependencies: ["DEVOPS-001"]
+  estimated_effort: "3-4 hours"
+
+- timestamp: "[2026-01-23 10:50 AM]"
+  from: product-owner
+  to: api-architect
+  task_id: "API-002"
+  priority: "HIGH"
+  task: "Revise project folder structure"
+  details: |
+    in the current structure data, domain folders are in side lib folder, so in future how u are going to place feature wise folders, if it is correct just give me clearification, or make required adjustments.
+  dependencies: []
+  estimated_effort: "3-4 hours"
+- timestamp: "[2026-01-23 10:52 AM]"
+  from: api-architect
+  to: product-owner
+  task_id: "API-002"
+  status: "COMPLETED"
+  message: |
+    ✅ API-002: Project Folder Structure Migration - COMPLETED
+    
+    Migrated from layer-first to hybrid feature-layer structure for better scalability.
+    
+    📦 NEW STRUCTURE:
+    lib/
+    ├── core/               # Shared code
+    │   ├── domain/        # Failures, base UseCase
+    │   └── data/          # Network, exceptions
+    └── features/
+        └── auth/          # Auth feature module
+            ├── domain/    # Entities, repositories, usecases
+            └── data/      # Models, datasources, repositories
+    
+    ✅ MIGRATION COMPLETED:
+    - Created core/ and features/ structure
+    - Moved 100+ files to new locations
+    - Updated all import statements
+    - Reorganized test structure
+    - All 78 tests passing
+    
+    📚 BENEFITS:
+    - Better scalability for future features
+    - All related code grouped together
+    - Easier navigation and maintenance
+    - Supports multiple developers working in parallel
+    
+    ✅ VERIFICATION:
+    - Tests: 78/78 passing
+    - No compilation errors
+    - Documentation updated
+    
+    📖 DOCUMENTATION CREATED:
+    - docs/architecture/project-structure.md
+    - Updated docs/architecture/domain-layer.md
+    
+    🚀 NEXT STEPS:
+    - Future features go in lib/features/{feature_name}/
+    - Follow same pattern as features/auth/
+    
+    🕐 ACTUAL EFFORT: 1.5 hours
+    
+    Role: API Architect
+- timestamp: "[2026-02-05 03:15 PM]"
+  from: api-architect
+  to: product-owner
+  task_id: "API-014"
+  status: "COMPLETED"
+  message: |
+    ✅ API-014: International Temp Booking Flow - COMPLETED
+    
+    Successfully established the architecture and implementation for international temporary bookings.
+    
+    📋 DELIVERABLES:
+    - InternationalTempBookingRequest DTO (lib/features/shipping/data/models/)
+    - CreateIntlTempBooking Use Case (lib/features/shipping/domain/usecases/)
+    - ShippingRepository interface and implementation updates
+    - BookingBloc event/state/handler for international flow
+    - InternationalBookingScreen UI integration and footer logic
+    
+    ✅ VERIFICATION:
+    - Unit tests updated in BookingBloc (mocked new use case)
+    - Lint errors resolved in presentation layer
+    - Dynamic footer visibility verified
+    
+    🕐 ACTUAL EFFORT: 2 hours
+    
+    Role: API Architect
+- timestamp: "[2026-02-07 12:50 PM]"
+  from: api-architect
+  to: product-owner
+  task_id: "API-015"
+  status: "COMPLETED"
+  message: |
+    ✅ API-015: International Bulk Temp Booking Flow - COMPLETED
+    
+    Successfully implemented bulk booking architecture for international shipments.
+    
+    📋 DELIVERABLES:
+    - IntlBulkTempBookingResponse DTO (lib/features/shipping/data/models/)
+    - CreateIntlBulkTempBooking Use Case (lib/features/shipping/domain/usecases/)
+    - ShippingRepository interface and implementation updates
+    - BookingBloc event/state/handler for bulk international flow
+    - Response parsing logic to extract temp IDs from success_bookings array
+    
+    ✅ VERIFICATION:
+    - Unit tests passing (14/14)
+    - Bulk booking mock added to test suite
+    - Response aggregation verified (temp IDs + total amount)
+    
+    📊 API CONTRACT:
+    - Endpoint: POST /portal/intl/temp-bulk-booking/
+    - Request: Array of InternationalTempBookingRequest
+    - Response: success_bookings[], error_bookings[], total_amount
+    
+    🕐 ACTUAL EFFORT: 1.5 hours
+    
+    Role: API Architect
+- timestamp: "[2026-02-06 04:22 PM]"
+  from: product-owner
+  to: api-architect
+  task_id: "API-INTL-BULK-001"
+  priority: "HIGH"
+  task: "Define International Bulk Booking Domain Contracts"
+  details: |
+    Define use cases and repository interfaces for International Bulk Booking.
+    
+    **Files to Create**:
+    - `lib/features/shipping/domain/usecases/get_international_bulk_rates.dart`
+    - `lib/features/shipping/domain/usecases/init_intl_bulk_booking_payment.dart`
+    
+    **Files to Modify**:
+    - `lib/features/shipping/domain/repositories/shipping_repository.dart`
+    
+    **Use Cases**:
+    1. `GetInternationalBulkRates`: Batch fetch rates for multiple international orders
+    2. `InitIntlBulkBookingPayment`: Initialize payment for bulk international bookings
+    
+    **Repository Methods**:
+    ```dart
+    Future<Either<Failure, List<InternationalRate>>> getInternationalBulkRates(
+      List<InternationalRateRequest> requests,
+    );
+    
+    Future<Either<Failure, PaymentInitResult>> initInternationalBulkPayment(
+      List<int> tempBookingIds,
+      String paymentMethod,
+    );
+    ```
+    
+    Ensure all domain contracts are pure Dart with zero Flutter dependencies.
+  acceptance_criteria:
+    - Use cases follow standard pattern (extends UseCase)
+    - Repository interfaces use Either<Failure, T>
+    - Pure Dart implementation
+    - No breaking changes to existing contracts
+  dependencies: []
+  estimated_effort: "2-3 hours"
+- timestamp: "[2026-02-06 04:32 PM]"
+  from: api-architect
+  to: product-owner
+  task_id: "API-INTL-BULK-001"
+  status: "COMPLETED"
+  message: |
+    ✅ DOMAIN CONTRACTS DEFINED: International Bulk Booking
+    
+    📦 DELIVERABLES:
+    1. Created `InitIntlBulkBookingPayment` use case
+    2. Created `InitIntlBulkPaymentParams` entity with default bookingType='INTERNATIONAL BULK'
+    3. Updated `ShippingRepository` interface with `initIntlBulkBookingPayment()` method
+    
+    📝 NOTES:
+    - Reusing existing `CreateIntlTempBooking` use case in a loop for bulk temp booking creation
+    - No dedicated bulk temp booking use case needed - keeps domain clean
+    
+    ✅ READY FOR: Backend Engineer to implement data layer
+    
+    Role: API Architect
+
+

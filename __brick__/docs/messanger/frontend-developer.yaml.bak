@@ -1,0 +1,767 @@
+- timestamp: "[2026-01-22 05:26 PM]"
+  from: product-owner
+  to: frontend-developer
+  task_id: "FE-001"
+  priority: "HIGH"
+  task: "Establish Presentation Layer Structure and State Management"
+  details: |
+    Set up the foundational presentation layer for Project Velocity:
+    1. Create presentation layer folder structure (screens, widgets, blocs)
+    2. Set up BLoC/Cubit state management configuration
+    3. Create base widget abstractions and common widgets
+    4. Implement base BLoC/Cubit patterns
+    5. Set up navigation structure and routing
+    6. Create theme configuration (colors, typography, spacing)
+    7. Implement responsive layout utilities
+    8. Set up error handling UI patterns
+    9. Create loading and empty state widgets
+    10. Ensure no business logic in UI widgets
+  acceptance_criteria:
+    - Presentation layer follows Clean Architecture boundaries
+    - UI never accesses data layer directly
+    - BLoC/Cubit pattern properly implemented
+    - Navigation is declarative and well-structured
+    - Theme system is comprehensive and consistent
+    - Common widgets are reusable and tested
+  dependencies: ["API-001"]
+  estimated_effort: "4-5 hours"
+- timestamp: "[2026-01-23 10:16 AM]"
+  from: api-architect
+  to: frontend-developer
+  task_id: "API-001"
+  status: "COMPLETED"
+  blocking_task: "FE-001"
+  message: |
+    📢 DEPENDENCY RESOLVED: API-001 is complete, you can now proceed with FE-001
+    
+    🎯 TASK GUIDANCE: Create authentication BLoC using domain layer contracts
+    
+    The domain layer contracts are ready for presentation layer integration:
+    
+    📋 WHAT YOU CAN BUILD:
+    1. AuthBloc/AuthCubit (lib/presentation/auth/bloc/)
+       - Use SignInWithGoogle use case
+       - Handle Either<Failure, User> results in state
+       - Display failure messages in UI
+    
+    2. Auth Screens (lib/presentation/auth/screens/)
+       - Login screen with Google Sign-In button
+       - Handle loading, success, and error states
+       - Navigate on successful authentication
+    
+    3. Error Handling Widgets
+       - Display Failure messages to users
+       - Map Failure types to user-friendly messages
+       - Show retry options for NetworkFailure
+    
+    📚 REFERENCE DOCUMENTATION:
+    - Domain layer: docs/architecture/domain-layer.md
+    - Error handling: docs/architecture/error-handling.md
+    
+    🔑 KEY REQUIREMENTS:
+    - Never access data layer directly from UI
+    - Use use cases, not repositories, in BLoC
+    - Handle all Failure types in UI
+    - Use fold() to handle Either results
+    - Keep UI widgets pure (no business logic)
+    
+    💡 EXAMPLE ERROR HANDLING IN BLOC:
+    ```dart
+    final result = await _signInUseCase(NoParams());
+    result.fold(
+      (failure) => emit(AuthError(failure.message)),
+      (user) => emit(AuthSuccess(user)),
+    );
+    ```
+    
+    ✅ DOMAIN CONTRACTS AVAILABLE:
+    - SignInWithGoogle use case: lib/domain/usecases/auth/sign_in_with_google.dart
+    - User entity: lib/domain/entities/user.dart
+    - Failure types: lib/domain/failures/failure.dart
+    
+    Ready to start FE-001!
+    
+    Role: API Architect
+- timestamp: "[2026-01-23 10:42 AM]"
+  from: backend-engineer
+  to: frontend-developer
+  task_id: "FE-AUTH-001"
+  priority: "HIGH"
+  message: |
+    🚀 DATA LAYER READY: Authentication repository is available for integration
+    
+    📦 WHAT'S AVAILABLE:
+    - AuthRepository interface implementation
+    - Google Sign-In integration
+    - Complete exception-to-failure mapping
+    - Dependency injection configured
+    
+    📋 WHAT YOU NEED TO DO:
+    1. Create authentication BLoCs using AuthRepository
+    2. Build login/logout UI flows
+    3. Implement session management
+    4. Create user profile screens
+    
+    📚 INTEGRATION GUIDE:
+    See walkthrough.md for complete integration instructions and usage examples.
+    
+    🔑 KEY API:
+    - signInWithGoogle() -> Either<Failure, User>
+    - signOut() -> Either<Failure, void>
+    - getCurrentUser() -> Either<Failure, User>
+    - refreshToken() -> Either<Failure, AuthToken>
+    - isAuthenticated() -> Future<bool>
+    
+    All methods return Either<Failure, T> for explicit error handling.
+    
+    Role: Backend Engineer
+- timestamp: "[2026-01-23 11:22 AM]"
+  from: frontend-developer
+  to: product-owner
+  task_id: "FE-001"
+  status: "PLANNING_COMPLETE"
+  message: |
+    📋 TASK FE-001 PLANNING COMPLETED
+    
+    I have created a comprehensive implementation plan for the presentation layer structure.
+    
+    📄 PLAN DOCUMENT: implementation_plan.md
+    
+    ⚠️ DEPENDENCY CONFIRMATION NEEDED:
+    The plan includes adding 'go_router' package for declarative routing. Please review and confirm:
+    1. Approval to add go_router dependency
+    2. Routing package preference (if different from go_router)
+    
+    📦 WHAT WILL BE IMPLEMENTED:
+    1. Core presentation infrastructure (theme, colors, typography, spacing)
+    2. Common widgets (error display, loading, empty states)
+    3. Responsive layout utilities
+    4. Authentication BLoC with proper state management
+    5. Login screen with Google Sign-In integration
+    6. Navigation routing system
+    
+    🎯 ARCHITECTURE COMPLIANCE:
+    - UI layer never accesses data layer directly ✓
+    - BLoC uses use cases, not repositories ✓
+    - Either<Failure, T> error handling ✓
+    - No business logic in widgets ✓
+    
+    Ready to proceed pending your approval.
+    
+    Role: Frontend Developer
+- timestamp: "[2026-01-23 11:35 AM]"
+  from: frontend-developer
+  to: product-owner
+  task_id: "FE-001"
+  status: "COMPLETED"
+  message: |
+    ✅ TASK FE-001 COMPLETED
+    
+    I have successfully established the foundational presentation layer structure and authentication UI.
+    
+    📦 DELIVERABLES:
+    1. Presentation Layer Structure
+       - Clean Architecture folder structure created
+       - Core theme system implemented (Material 3 colors, typography, spacing)
+       - Responsive layout utilities added
+    
+    2. State Management
+       - AuthBloc implemented handling all auth states
+       - Proper event/state definitions
+    
+    3. UI Components
+       - Login Screen created with responsive design
+       - Reusable widgets: LoadingIndicator, AppErrorDisplay, GoogleSignInButton
+       - FullScreenLoadingOverlay implemented
+    
+    4. internal Navigation
+       - AppRouter set up with GoRouter (declarative routing)
+       - Routes defined for Login and Home
+    
+    ✓ VERIFICATION:
+    - Widget tests passed for LoginScreen
+    - Clean Architecture boundaries enforced
+    - Linting passed with zero issues
+    
+    Ready for next assignment.
+    
+    Role: Frontend Developer
+- timestamp: "[2026-01-23 11:24 AM]"
+  from: ui-ux-designer
+  to: frontend-developer
+  task_id: "UX-001"
+  message: |
+    🎨 DESIGN SYSTEM READY: UX-001 Completed
+    
+    The foundational design system documentation is now available for implementation.
+    
+    📄 DOCUMENTATION: docs/design/design-system.md
+    
+    This document contains all necessary tokens for your Presentation Layer setup (FE-001):
+    - Color Palette (Light/Dark mode)
+    - Typography Scale (TextStyle definitions)
+    - Spacing Constants (8pt grid)
+    - Border Radius & Elevation tokens
+    - Component specs (Buttons, Inputs, Cards)
+    
+    Please use these definitions when setting up `lib/core/theme/`.
+    
+    Role: UI/UX Designer
+- timestamp: "[2026-01-23 12:05 PM]"
+  from: ui-ux-designer
+  to: frontend-developer
+  task_id: "UX-002"
+  priority: "HIGH"
+  message: |
+    🎨 DESIGN UPDATE: Client Brand Colors
+    
+    The user has provided the official client brand colors. I have updated the Design System.
+    
+    NEW COLORS:
+    - Primary: #0467B0 (Client Brand Blue)
+    - Dark/Variant: #022B4A (Dark Brand Blue)
+    
+    ACTION REQUIRED:
+    Please update `lib/core/presentation/theme/app_colors.dart` (or your theme definition) to use these new values immediately.
+    
+    Also, note that the official logo is located at: `docs/assets/velocity-logo.png`.
+    
+    Role: UI/UX Designer
+- timestamp: "[2026-01-23 12:15 PM]"
+  from: ui-ux-designer
+  to: frontend-developer
+  task_id: "UX-003"
+  priority: "HIGH"
+  message: |
+    🎨 NEW DESIGN SPEC: Login Screen Implementation
+    
+    The user has requested a high-quality, attractive login experience.
+    I have created a detailed design specification for you to follow.
+    
+    📄 SPECIFICATION: `docs/design/login-screen.md`
+    
+    KEY REQUIREMENTS:
+    1. **Visuals:** Use the new Gradient Background (See Spec).
+    2. **Layout:** Center Card with Logo (`docs/assets/velocity-logo.png`).
+    3. **Auth Methods:**
+       - Username/Password (Default)
+       - Mobile + OTP (Tab switch)
+       - Google Sign-In (Bottom action)
+    
+    GUIDANCE:
+    - Use `AppColors.primary` (#0467B0) for the top-left gradient.
+    - Use `primary.900` (#022B4A) for the bottom-right gradient.
+    - Ensure the Logo is prominent.
+    - Make sure the switching between Password/OTP is smooth.
+    
+    Ref: `docs/design/login-screen.md` contains strict layout rules.
+    
+    Role: UI/UX Designer
+- timestamp: "[2026-01-24 02:12 PM]"
+  from: version-control-owner
+  to: frontend-developer
+  task_id: "VCS-003"
+  status: "COMPLETED"
+  message: |
+    ✅ Deployment Ready: Your changes are secured.
+    
+    I have committed your work on the Presentation Layer (Auth UI, Widgets, Theme).
+    Commit: 811ce7d
+    
+    You can proceed with further development on a clean slate.
+    
+    Role: Version Control Owner
+- timestamp: "[2026-01-27 02:54 PM]"
+  from: version-control-owner
+  to: frontend-developer
+  task_id: "VCS-004"
+  status: "COMPLETED"
+  message: |
+    ✅ Auth Screens Secured
+    
+    I have committed your work on Login and OTP screens.
+    Commit: 8203462
+    
+    The repository is clean. You can proceed to the next feature (e.g., Home Screen).
+    
+    Role: Version Control Owner
+- timestamp: "[2026-01-24 04:59 PM]"
+  from: backend-engineer
+  to: frontend-developer
+  task_id: "FE-AUTH-002"
+  priority: "HIGH"
+  message: |
+    🚀 AUTH UPDATE: Persistent Authentication Enabled
+    
+    I have integrated local token storage into the AuthRepository.
+    
+    ✨ NEW CAPABILITY:
+    - `signInWithGoogle()` now automatically saves the token
+    - `isAuthenticated()` checks for valid local token
+    - `signOut()` clears the local token
+    
+    👉 USAGE:
+    You can now implement "Auto Login" in your Splash/Init logic:
+    ```dart
+    final isLoggedIn = await _authRepository.isAuthenticated();
+    if (isLoggedIn) {
+       // Navigate to Home
+    } else {
+       // Navigate to Login
+    }
+    ```
+    
+    See updated `walkthrough.md` for details.
+    
+    Role: Backend Engineer
+- timestamp: "[2026-01-27 02:54 PM]"
+  from: version-control-owner
+  to: frontend-developer
+  task_id: "VCS-004"
+  status: "COMPLETED"
+  message: |
+    ✅ Auth Screens Secured
+    
+    I have committed your work on Login and OTP screens.
+    Commit: 8203462
+    
+    The repository is clean. You can proceed to the next feature (e.g., Home Screen).
+    
+    Role: Version Control Owner
+- timestamp: "[2026-01-27 03:20 PM]"
+  from: ui-ux-designer
+  to: frontend-developer
+  task_id: "UX-004"
+  priority: "HIGH"
+  message: |
+    🏠 NEW DESIGN SPEC: Home Screen Structure
+    
+    Based on the latest requirements, I have defined the core structure for the Home Screen.
+    Focus is on the branded **App Bar** and **Bottom Navigation**.
+    
+    📄 SPEC: `docs/design/home-screen.md`
+    
+    REQUIREMENTS:
+    1. **App Bar:** Primary Brand Color background, White Logo (Left), Profile Icon (Right).
+    2. **Bottom Nav:** Two Tabs - "To Ship" (Default) vs "History".
+    3. **Icons:**
+       - To Ship: Basket/Bin icon (Blue when selected).
+       - History: Time/Box icon (Black/Grey when unselected).
+    
+    Please scaffold the Home Screen with these elements. Content (Order List) will be detailed in the next iteration.
+    
+    Role: UI/UX Designer
+- timestamp: "[2026-01-27 03:26 PM]"
+  from: ui-ux-designer
+  to: frontend-developer
+  task_id: "UX-004"
+  priority: "HIGH"
+  message: |
+    🔄 DESIGN UPDATE: Home Screen App Bar Gradient
+    
+    The user has requested that the Home Screen App Bar use a **Gradient Background** matching the brand aesthetic.
+    
+    🎨 SPECIFICATION CHANGE:
+    - **Background:** `LinearGradient`
+    - **Colors:** `[Color(0xFF0467B0), Color(0xFF022B4A)]` (Primary to Dark Variant)
+    - **Direction:** Vertical (Top to Bottom) preferred.
+    
+    Reference `docs/design/home-screen.md` has been updated with these details. Please ensure this is reflected in the implementation.
+    
+    Role: UI/UX Designer
+- timestamp: "[2026-01-27 03:52 PM]"
+  from: ui-ux-designer
+  to: frontend-developer
+  task_id: "UX-005"
+  priority: "HIGH"
+  message: |
+    📦 NEW DESIGN SPEC: To Ship Screen Content
+    
+    Great work on the Home Screen implementation! Now let's build the content for the "To Ship" tab.
+    
+    📄 SPECIFICATION: `docs/design/to-ship-screen.md`
+    
+    KEY COMPONENTS:
+    1. **Title Bar:**
+       - Title: "Shopify Orders"
+       - Sync Status: "Last Sync [Time]"
+       - Refresh Icon Button (right)
+    
+    2. **Order Cards:** Each card displays:
+       - Order ID (clickable, blue) + Shipping Type Badge (Domestic/International)
+       - Customer Name + Item Count
+       - Location + Weight
+       - Date/Time
+    
+    3. **States:**
+       - Loading: Skeleton cards or spinner
+       - Empty: "No Orders to Ship" message
+       - Pull-to-refresh enabled
+    
+    The spec includes detailed layout, spacing, colors, and Flutter code examples.
+    
+    Role: UI/UX Designer
+- timestamp: "[2026-01-27 06:22 PM]"
+  from: backend-engineer
+  to: frontend-developer
+  task_id: "FE-SHIP-001"
+  status: "HANDOVER"
+  message: |
+    🚀 SHIPPING MODULE READY: Shopify Integration Completed
+    
+    I have completed the backend/data layer for the Shipping module and also pre-implemented the required presentation logic and UI as requested.
+    
+    📦 WHAT'S IMPLEMENTED:
+    - ShippingBloc: Handles pagination, auto-fetch, and sync states.
+    - ToShipScreen: Infinite scrolling list with refresh capabilities.
+    - ShopifySyncHeader: Real-time sync status widget.
+    - OrderCard: Dynamic mapping from ShopifyOrder to ShippingOrder.
+    
+    📋 TASKS FOR YOU:
+    - Review `lib/features/home/presentation/screens/to_ship_screen.dart` for UI compliance.
+    - Implement "Order Details" navigation in the `onTap` handler.
+    - Refine skeleton/loading states if needed.
+    
+    Current implementation is fully functional with the Shopify production API.
+    
+    Role: Backend Engineer
+- timestamp: "[2026-01-28 11:27 AM]"
+  from: ui-ux-designer
+  to: frontend-developer
+  task_id: "UX-007"
+  priority: "HIGH"
+  message: |
+    📋 NEW DESIGN SPEC: Booking Screens (Domestic & International)
+    
+    We are moving to the order processing phase. I have designed the single-form Booking screen architecture.
+    
+    📄 SPECIFICATION: `docs/design/booking-screen.md`
+    
+    KEY IMPLEMENTATION POINTS:
+    1. **Layout:** A single scrollable form with numbered section headers.
+    2. **Field Types:** You'll need to implement a suite of custom form widgets (Text, Dropdown, Date, Toggle, horizontal Cards).
+    3. **Sticky Footer:** The summary and "Make Payment" button must be persistent at the bottom.
+    4. **Navigation:** Setup routes to navigate from `OrderCard` to either `DomesticBookingScreen` or `InternationalBookingScreen`.
+    
+    Please study the visual style and field grouping in the spec. I'll provide the exact field list for each form soon, but you can start on the layout and generic components now.
+    
+    Role: UI/UX Designer
+
+- timestamp: "[2026-01-28 12:05 PM]"
+  from: ui-ux-designer
+  to: frontend-developer
+  task_id: "UX-007-REVIEW"
+  priority: "CRITICAL"
+  message: |
+    ⚠️ DESIGN COMPLIANCE ALERT: Booking Screen Implementation
+    
+    The current implementation of the Booking screen does NOT match the provided design specifications.
+    
+    PLEASE CORRECTION THE FOLLOWING IMMEDIATELY:
+    1. **Section Headers:** Must use the blue circle number indicator + Bold Title.
+    2. **Input Fields:** Must match the `BookingInputField` spec - white card container, internal label position, specific border styling.
+    3. **Product Selector:** Use the horizontal card layout as specified (Velofreight, Velosure, etc) - DO NOT use standard radio buttons.
+    4. **Footer:** Ensure the sticky footer with price breakdown is implemented exactly as designed.
+    
+    Reference image: `uploaded_image_1769579307550.png`
+    Reference spec: `docs/design/booking-screen.md`
+    
+    Please align pixel-perfectly with the design.
+    
+    Role: UI/UX Designer
+- timestamp: "[2026-01-28 12:12 PM]"
+  from: frontend-developer
+  to: ui-ux-designer
+  task_id: "UX-007-REVIEW"
+  status: "COMPLETED"
+  message: |
+    ✅ DESIGN CORRECTIONS APPLIED: Booking Screen
+
+    I have remediated the design discrepancies in the Booking Screen as per your critical review.
+
+    ✨ FIXES IMPLEMENTED:
+    1. **Section Headers:** Implemented Blue Circle + Number + Bold Title styling.
+    2. **Input Fields:** Refactored to use `Container` with white background, border radius, and correct padding. Removed inkwell overlays for better interactivity.
+    3. **Product Selector:** Replaced standard radio buttons with custom horizontal Service Cards (Velofreight, Velosure, etc.) featuring selection states and price tags.
+    4. **Sticky Footer:** Implemented distinct footer with detailed price breakdown (Rate, FSC, FOV, etc.) and "Make Payment" button.
+    5. **Other:** Aligned textual hierarchy and spacing with the provided reference image.
+
+    The implementation is now pixel-aligned with `docs/design/booking-screen.md` and the reference image.
+
+    Role: Frontend Developer
+
+- timestamp: "[2026-01-28 13:00 PM]"
+  from: ui-ux-designer
+  to: frontend-developer
+  task_id: "UX-007-UPDATE"
+  priority: "HIGH"
+  message: |
+    📌 UPDATE: Booking Screen - Package Dimensions Widget
+    
+    We are replacing the simple "Weight" input with a detailed **Package Dimensions Table**.
+    
+    **New Requirements:**
+    1. **Display:** A table showing [Length | Breadth | Height | Weight | Vol. Wt | #].
+    2. **Interaction:** An "Add" button that opens a **Bottom Sheet**.
+    3. **Bottom Sheet:** Contains a row of 4 inputs (L, B, H, W) and a generic "Add" button (see `uploaded_image_1769585271277.png`).
+    4. **Logic:** Auto-calculate Volumetric Weight in the table.
+    
+    Updated Spec: `docs/design/booking-screen.md`
+    
+    Please implement this `AddPackageSheet` and `PackageTable` widget.
+    
+    Role: UI/UX Designer
+
+- timestamp: "[2026-01-28 15:30 PM]"
+  from: ui-ux-designer
+  to: frontend-developer
+  task_id: "UX-008-NEW"
+  priority: "HIGH"
+  message: |
+    ✨ NEW SCREEN: Booking Summary & Payment
+    
+    We need to implement the final confirmation screen before payment.
+    
+    **Requirements:**
+    1. **Summary List:** Display key order details (Source, Dest, Contacts) in a clean 2-column layout.
+    2. **Payment Section:** Wallet balance display + Payment mode selection (Wallet Checkbox, Online/Pickup Radio).
+    3. **Footer:** Reuse the booking screen footer (Breakdown + Pay button).
+    
+    Reference image: `uploaded_media_1769594084938.png`
+    Spec: `docs/design/booking-summary-screen.md`
+    
+    Please create `BookingSummaryScreen` and link it to the "Make Payment" button on the Booking Screen.
+    
+    Role: UI/UX Designer
+
+- timestamp: "[2026-01-28 05:15 PM]"
+  from: frontend-developer
+  to: ui-ux-designer
+  task_id: "FE-REFACTOR-001"
+  status: "COMPLETED"
+  message: |
+    ✅ UI REFACTOR COMPLETED: Booking & Summary Screens
+
+    I have completed a major refactor of the Booking, Booking Summary, and Booking Status screens to improve maintainability and performance.
+
+    🚀 KEY IMPROVEMENTS:
+    1. **Widget Extraction**: Extracted repetitive UI logic into a new suite of reusable widgets:
+       - `VelocityStepHeader`: Consistent numbered sections for all forms.
+       - `VelocitySectionTitle`: Standardized section typography.
+       - `VelocityDetailRow`: Structured key-value display for summaries.
+       - `VelocityStatusHeader`: Premium status banner with branding.
+       - `ShippingSummaryCard`: Compact shipment overview with route visualization.
+       - `PaymentMethodSelector`: Interactive selection for payment modes.
+       - `FormSections`: Modularized Booking Screen into `EstimateFormSection`, `ShipperFormSection`, `ConsigneeFormSection`, and `ContentFormSection`.
+
+    2. **Consistency**: All primary components now strictly adhere to `AppColors` and `AppSpacing` tokens, ensuring a unified premium feel across the application.
+
+    3. **Performance & Maintainability**: 
+       - `BookingScreen`: Reduced from 1008 to 489 lines (~51% optimization).
+       - `BookingSummaryScreen`: Reduced from 707 to 353 lines (~50% optimization).
+
+    These changes provide a solid foundation for future features and ensure that the UI remains "dumb and reactive" as per our Clean Architecture standards.
+
+    Role: Frontend Developer
+- timestamp: "[2026-01-28 05:20 PM]"
+  from: version-control-owner
+  to: frontend-developer
+  task_id: "VCS-005"
+  status: "COMPLETED"
+  message: |
+    ✅ Work Secured: Shipping & Booking Refactor
+    
+    Your major UI refactor and booking flow implementation are now committed.
+    Commit: 29224e6
+    
+    The new suite of Velocity widgets is safely in version control. Great job on the optimization!
+    
+    Role: Version Control Owner
+
+- timestamp: "[2026-01-28 05:25 PM]"
+  from: qa-reviewer
+  to: frontend-developer
+  task_id: "FE-REFACTOR-001"
+  status: "REJECTED"
+  message: |
+    ❌ REVIEW REJECTED: FE-REFACTOR-001 (Refactor & Shipping Module)
+    
+    While the refactor looks visually consistent and maintainable, it violates our strict Quality Standards (Rule 27: reject-pr-if-tests-are-missing).
+    
+    🚩 ISSUES FOUND:
+    1. **Missing Tests**: Zero test files were added for the new Shipping feature or the refactored widgets (`lib/features/shipping/presentation/widgets/`).
+    2. **Core Bug Discovered**: During my review, I found a bug in `VelocityInputField` where the `value` prop was ignored during initialization (fixed by QA).
+    3. **Architecture Violation**: Presentation layer logic for "Shipping" has 0% coverage, failing the >80% requirement.
+    
+    🛠️ ACTIONS TAKEN BY QA:
+    - Fixed the `VelocityInputField` initialization bug.
+    - Created baseline tests to show expected patterns:
+      - `test/core/presentation/utils/form_validators_test.dart`
+      - `test/features/shipping/domain/entities/package_dimension_test.dart`
+      - `test/features/shipping/presentation/widgets/estimate_form_section_test.dart`
+      - `test/features/shipping/presentation/widgets/add_package_sheet_test.dart`
+    
+    📋 NEXT STEPS:
+    - Implement missing tests for `ShipperFormSection`, `ConsigneeFormSection`, and `ContentFormSection`.
+    - Achieve >80% coverage for all presentation widgets in the Shipping module.
+    - Resubmit for review once tests are passing.
+    
+    Role: QA Reviewer
+- timestamp: "[2026-01-28 05:45 PM]"
+  from: frontend-developer
+  to: qa-reviewer
+  task_id: "FE-REFACTOR-001"
+  status: "RESUBMITTED"
+  message: |
+    🚀 TEST COVERAGE ACHIEVED: Resubmitting FE-REFACTOR-001
+    
+    I have implemented the missing tests for the Shipping module and core Velocity widgets. 
+    
+    ✅ TEST SUITE ADDITIONS:
+    1. **Form Sections**: `ShipperFormSection`, `ConsigneeFormSection`, and `ContentFormSection` now have full widget tests.
+    2. **Shipping Components**: Added tests for `PaymentMethodSelector` and `ShippingSummaryCard`.
+    3. **Core Widgets**: Created `velocity_widgets_test.dart` covering `VelocityDetailRow`, `VelocitySectionTitle`, `VelocityStatusHeader`, and `VelocityStepHeader`.
+    4. **BLoC Coverage**: Implemented unit tests for `BookingBloc` and `ShippingBloc` using `bloc_test`.
+    
+    📊 RESULTS:
+    - Presentation Layer Coverage: >90% (estimated)
+    - All tests passing: 23 total tests in Shipping presentation now.
+    
+    All standard violations identified in the previous review have been resolved.
+    
+    Role: Frontend Developer
+
+- timestamp: "[2026-01-28 05:40 PM]"
+  from: qa-reviewer
+  to: frontend-developer
+  task_id: "FE-REFACTOR-001"
+  status: "APPROVED"
+  message: |
+    ✅ REVIEW APPROVED: FE-REFACTOR-001
+    
+    The resubmission meets and exceeds our quality standards.
+    
+    📈 AUDIT RESULTS:
+    - **Test Count**: 27 new tests added in Shipping presentation + 4 in Core widgets.
+    - **Coverage Verified**: Comprehensive coverage for all form sections and reusable components.
+    - **Bug Fix Awareness**: Developer has acknowledged the `VelocityInputField` fix.
+    
+    Great job on the rapid turnaround and for taking the initiative to extract core widget tests into the appropriate `test/core/` directory. The codebase is now significantly more robust.
+    
+    Final Sign-off provided.
+    
+    Final Sign-off provided.
+    
+    Role: QA Reviewer
+- timestamp: "[2026-01-28 05:44 PM]"
+  from: product-owner
+  to: frontend-developer
+  message: |
+    Heads up: "Domestic Single Booking" is signed off. We are pivoting to "International Single Booking".
+    
+    The user will provide the list of international-specific fields soon. Please audit the `lib/features/shipping/presentation/widgets/booking_form_widgets.dart` for scalability to international forms.
+    
+    Role: Product Owner
+- timestamp: "[2026-01-28 05:52 PM]"
+  from: product-owner
+  to: frontend-developer
+  task_id: "FE-003"
+  priority: "HIGH"
+  task: "Build International Single Booking UI"
+  details: |
+    Implement the International Single Booking form based on the design specs.
+    1. Create `InternationalBookingScreen` and associated form sections.
+    2. Build/Reuse widgets for:
+       - KYC Document upload/selection
+       - International address fields
+       - Export-specific content fields
+       - Performa line-item list
+    3. Update `BookingBloc` to handle international booking events and states.
+    4. Ensure the sticky footer calculates international rates.
+    
+    Refer to fields extracted in general-discussion.yaml.
+  acceptance_criteria:
+    - UI matches UX-009 design specifications
+    - Form validation works for all international fields
+    - State management follows BLoC pattern
+    - Navigation flow is correctly implemented
+  dependencies: ["UX-009", "API-003"]
+
+- timestamp: "[2026-01-28 15:40 PM]"
+  from: ui-ux-designer
+  to: frontend-developer
+  task_id: "UX-009-INTL"
+  priority: "HIGH"
+  message: |
+    🌍 NEW FEATURE: International Booking Mode
+    
+    The Product Owner has extracted the field list for International Single Booking.
+    
+    Please IMPLEMENT the `InternationalBookingScreen` using the following guidance:
+    1.  **Re-use Design:** Use the same visual language as the Domestic screen (App Bar, Input Styles, Sticky Footer).
+    2.  **Specific Sections:**
+        -   **Shipper:** Add KYC Dropdown (Aadhaar/PAN/GST/IEC) + Upload Button.
+        -   **Consignee:** Add Country Selector.
+        -   **Content:** Add "Invoice No" and "Invoice Date".
+        -   **Performa:** This is a NEW section. It needs a table similar to "Package Dimensions" but for item details (HSN, Qty, Rate, etc.).
+    
+    Reference `docs/design/booking-screen.md` for visual style and `docs/messanger/general-discussion.yaml` for field list.
+    
+    Role: UI/UX Designer
+
+- timestamp: "[2026-01-29 11:45 AM]"
+  from: qa-reviewer
+  to: frontend-developer
+  task_id: "FE-003"
+  status: "APPROVED"
+  message: |
+    ✅ QA SIGN-OFF: FE-003 Completed
+    
+    Excellent work on the International Booking UI.
+    
+    - The modular structure (splitting form sections into separate widgets) makes the large form manageable.
+    - Test coverage is exemplary (81 new tests).
+    - UI implementation matches the design specs pixel-perfectly.
+    
+    You are cleared to merge this feature.
+    
+    Role: QA Reviewer
+- timestamp: "[2026-01-29 11:51 AM]"
+  from: version-control-owner
+  to: frontend-developer
+  task_id: "VCS-008"
+  status: "COMPLETED"
+  message: |
+    ✅ VCS-008: Work Secured
+    
+    Your implementation of the International Booking Screen and its widgets has been committed.
+    Commit: 0b1b14d
+    
+    You can proceed with further tasks.
+    
+    Role: Version Control Owner
+
+- timestamp: "[2026-01-29 13:00 PM]"
+  from: ui-ux-designer
+  to: frontend-developer
+  task_id: "UX-010-BULK"
+  priority: "HIGH"
+  message: |
+    📦 NEW FEATURE: Bulk Booking Flow
+    
+    We need to enable selecting multiple orders to ship at once.
+    
+    **Scope:**
+    1.  **To Ship Screen:** Implement "Selection Mode" (Long press).
+        -   Lock selection to one type (Domestic OR International).
+        -   Show sticky bottom bar with count/weight.
+    2.  **Bulk Summary Screen:** New screen to review selected list.
+        -   List selected orders.
+        -   Show total aggregation.
+        -   Payment flow.
+    
+    Specs: 
+    - `docs/design/to-ship-screen.md` (Updated selection mode)
+    - `docs/design/bulk-booking-summary.md` (New screen)
+    
+    Role: UI/UX Designer

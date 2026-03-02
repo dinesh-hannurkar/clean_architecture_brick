@@ -1,0 +1,75 @@
+# filename: docs/governance/project-overview.yaml
+project: app
+version: 1.0.0
+type: mobile-application
+classification: internal-governance
+
+overview:
+  purpose: >
+    To provide a high-performance, maintainable mobile interface for Project App, 
+    leveraging strict Clean Architecture to ensure long-term scalability and 
+    modular testing capabilities.
+  system_identity:
+    - strict-clean-architecture
+    - modular-state-management
+    - declarative-ui
+    - authentication-secure
+    - notification-reactive
+  non_goals:
+    - web-interface-development
+    - proprietary-backend-logic-hosting-within-app
+    - bypassing-domain-layer-for-speed
+  boundaries:
+    - ui-must-never-access-data-layer-directly
+    - domain-layer-must-be-pure-dart
+    - third-party-packages-must-be-wrapped-in-adapters
+    - no-business-logic-in-ui-widgets
+
+architecture:
+  style: clean-architecture
+  layers:
+    presentation:
+      - flutter-widgets
+      - bloc-cubit-state-management
+    domain:
+      - use-cases-interactors
+      - entities-pure-models
+      - repository-interfaces
+    data:
+      - repository-implementations
+      - remote-data-sources-api
+      - local-data-sources-sqlite-conditional
+  tech_stack:
+    core: flutter-dart
+    state: flutter-bloc
+    auth: google-sign-in
+    persistence: sqlite-sqflite-conditional
+    messaging: firebase-messaging
+
+core_engineering_principles:
+  - dependency-inversion-principle
+  - single-responsibility-principle
+  - immutability-by-default
+  - unidirectional-data-flow
+  - test-driven-development-preferred
+
+data_handling_philosophy:
+  source_of_truth: remote-server-primary
+  local_caching: on-demand-only
+  persistence_state: ephemeral-unless-offline-mode-mandated
+
+failure_philosophy:
+  error_handling: explicit-failure-types-over-exceptions
+  recovery: graceful-ui-degradation
+  logging: structured-logging-for-analytics-and-crashlytics
+
+security_philosophy:
+  authentication: token-based-oauth2
+  storage: encrypted-secure-storage-for-credentials
+  communication: tls-1.3-required
+  data_leakage: no-sensitive-data-in-logs
+
+success_definition:
+  - zero-coupling-between-ui-and-data-layers
+  - 100-percent-test-coverage-on-domain-logic
+  - rigid-adherence-to-yaml-governance-contracts
