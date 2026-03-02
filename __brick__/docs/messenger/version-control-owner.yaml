@@ -1,145 +1,17 @@
-- timestamp: "[2026-01-22 05:26 PM]"
+# version-control-owner messenger channel
+# Add task messages here following the format below.
+
+- timestamp: "[YYYY-MM-DD HH:MM AM/PM]"
   from: product-owner
   to: version-control-owner
-  task_id: "VCS-001"
-  priority: "CRITICAL"
-  task: "Establish Git Workflow and Repository Structure"
+  task_id: "TASK-001"
+  priority: "HIGH"
+  task: "Example Task Title"
   details: |
-    Set up the foundational version control structure for Project App:
-    1. Define and document branching strategy (main/develop/feature/hotfix)
-    2. Create .gitignore for Flutter/Dart projects
-    3. Set up commit message conventions
-    4. Define PR/MR templates and review process
-    5. Establish access policies and branch protection rules
-    6. Document the complete git workflow for the team
+    Describe the task here.
+    1. Step one
+    2. Step two
   acceptance_criteria:
-    - Branching strategy documented and implemented
-    - .gitignore file covers all Flutter/Dart artifacts
-    - PR templates include architecture compliance checklist
-    - Branch protection enabled on main and develop branches
-  dependencies: []
-  estimated_effort: "2-3 hours"
-- timestamp: "[2026-01-23 11:46 AM]"
-  from: product-owner
-  to: version-control-owner
-  task_id: "VCS-002"
-  priority: "CRITICAL"
-  task: "Commit Base Project Structure"
-  details: |
-    The base project structure has been established and verified.
-    Action required:
-    1. Stage all new files and changes.
-    2. Commit with a conventional commit message.
-    3. Ensure clean working directory for next phase.
-  acceptance_criteria:
-    - All files staged and committed
-    - Commit message follows convention
-    - Working tree clean
-  dependencies: []
-  estimated_effort: "10 mins"
-- timestamp: "[2026-01-23 11:47 AM]"
-  from: version-control-owner
-  to: product-owner
-  task_id: "VCS-002"
-  status: "COMPLETED"
-  message: "Base project structure committed successfully. Working tree is clean."
-- timestamp: "[2026-02-03 01:16 PM]"
-  from: version-control-owner
-  to: product-owner
-  task_id: "VCS-015"
-  status: "COMPLETED"
-  message: |
-    ✅ VCS-015: GitFlow Alignment and Repository Health
-    
-    Branch 'develop' has been synchronized with 'main'.
-    Repository hygiene maintained: removed temporary test output files.
-    Security scan completed (no clear secrets found in lib/).
-    
-    Note: 'docs/' remains in .gitignore as per your latest request.
-    
-    Role: Version Control Owner
-- timestamp: "[2026-02-06 03:55 PM]"
-  from: version-control-owner
-  to: product-owner
-  task_id: "VCS-016"
-  status: "COMPLETED"
-  message: |
-    ✅ VCS-016: International Feature & Bulk Payment Flow Secured
-    
-    The latest feature development cycle has been successfully version-controlled across 4 logical commits.
-    - Added Core AppCard and debug utilities.
-    - Implemented International Rate and Temp Task logic.
-    - Integrated International Task UI refinements.
-    - Completed the Bulk Task Payment flow implementation.
-    
-    Repository is clean and synchronized on the 'develop' branch.
-    
-    Role: Version Control Owner
-- timestamp: "[2026-02-11 11:35 AM]"
-  from: version-control-owner
-  to: product-owner
-  task_id: "VCS-017"
-  status: "COMPLETED"
-  message: |
-    ✅ VCS-017: International Bulk Task & Payment Flow Secured
-    
-    The latest development synchronization has been successfully version-controlled across 5 logical commits.
-    - Implemented IntlBulkTempTask logic and use cases.
-    - Integrated UI refinements and core app configuration sync.
-    - Synchronized test suite for international bulk flows.
-    - Performed deep-sync of feature repositories and entities.
-    - Aligned authentication and home modules for app-wide consistency.
-    
-    Repository is clean and ahead of origin on the 'develop' branch.
-    
-    Role: Version Control Owner
-- timestamp: "[2026-02-12 12:45 PM]"
-  from: version-control-owner
-  to: product-owner
-  task_id: "VCS-018"
-  status: "COMPLETED"
-  message: |
-    ✅ VCS-018: Shopify Fulfillment & Currency Utilities Secured
-    
-    The latest development synchronization has been successfully version-controlled across 5 logical commits.
-    - Added CurrencyUtils and url_launcher dependency.
-    - Implemented Shopify fulfillment domain and data layers.
-    - Optimized task flow and UI components in the feature module.
-    - Synchronized test suite for app-wide consistency.
-    
-    Repository is clean and ahead of origin on the 'develop' branch.
-    
-    Role: Version Control Owner
-- timestamp: "[2026-02-13 04:30 PM]"
-  from: version-control-owner
-  to: product-owner
-  task_id: "VCS-019"
-  status: "COMPLETED"
-  message: |
-    ✅ VCS-019: Application Finalized & QA Transition Ready
-    
-    The foundational development phase for Project App is now successfully secured.
-    - Implemented domestic/international Task Details flow.
-    - Integrated app icons and brand assets across platforms.
-    - Completed app-wide synchronization and UI/UX refinements.
-    - Synchronized final test suite for QA baseline.
-    
-    Repository is clean, stable, and ready for QA review.
-    
-    Role: Version Control Owner
-- timestamp: "[2026-02-13 04:40 PM]"
-  from: version-control-owner
-  to: product-owner
-  task_id: "VCS-020"
-  status: "COMPLETED"
-  message: |
-    ✅ VCS-020: develop Branch Merged into main (Release Candidate 1)
-    
-    The application has reached a production-ready baseline. 
-    - All features, assets, and optimizations have been merged into 'main'.
-    - Preserved integration history using a non-fast-forward merge.
-    - Repository is clean and stable on 'main'.
-    
-    Ready for final production deployment and tagging.
-    
-    Role: Version Control Owner
+    - Criteria one
+    - Criteria two
+  estimated_effort: "1-2 hours"

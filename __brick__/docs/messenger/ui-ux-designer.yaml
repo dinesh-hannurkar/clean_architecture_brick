@@ -1,51 +1,17 @@
-- timestamp: "[2026-01-22 05:26 PM]"
-  from: product-owner
-  to: ui-ux-designer
-  task_id: "UX-001"
-  priority: "MEDIUM"
-  task: "Establish Design System and UI Guidelines"
-  details: |
-    Create the foundational design system for Project App:
-    1. Define color palette (primary, secondary, accent, semantic colors)
-    2. Define typography scale (headings, body, captions)
-    3. Define spacing system (margins, padding, gaps)
-    4. Define component design tokens
-    5. Create iconography guidelines
-    6. Define animation and motion principles
-    7. Create accessibility guidelines (contrast, font sizes, touch targets)
-    8. Document design system in a centralized location
-    9. Create Figma/design tool library (if applicable)
-  acceptance_criteria:
-    - Color palette defined and documented
-    - Typography scale is comprehensive
-    - Spacing system follows consistent scale
-    - Design tokens are clearly defined
-    - Accessibility standards meet WCAG 2.1 AA
-    - Documentation is clear and usable by Frontend Developer
-  dependencies: []
-  estimated_effort: "3-4 hours"
-- timestamp: "[2026-02-06 04:22 PM]"
-  from: product-owner
-  to: ui-ux-designer
-  task_id: "UX-012"
-  priority: "HIGH"
-  task: "Design International Bulk Task Summary UI"
-  details: |
-    Design the UI specification for International Bulk Task Summary Screen.
-    
-    **Context**: Domestic bulk task is complete. Now we need the international variant.
-    
-    **Requirements**:
-    1. Adapt existing domestic bulk summary layout for international orders
-    2. Include country/destination prominently in each order card
-    3. Design international rate breakdown display (FSC, GST, Base Rate specific to international)
-    4. Ensure bulk pincode sheet works for international addresses
-    
-    Reference the existing domestic bulk task screens and international single task design.
-  acceptance_criteria:
-    - Design mockup shows international order cards with destination country
-    - Rate breakdown section clearly displays international freight components
-    - Follows existing App design system
-  dependencies: []
-  estimated_effort: "2-3 hours"
+# ui-ux-designer messenger channel
+# Add task messages here following the format below.
 
+- timestamp: "[YYYY-MM-DD HH:MM AM/PM]"
+  from: product-owner
+  to: ui-ux-designer
+  task_id: "TASK-001"
+  priority: "HIGH"
+  task: "Example Task Title"
+  details: |
+    Describe the task here.
+    1. Step one
+    2. Step two
+  acceptance_criteria:
+    - Criteria one
+    - Criteria two
+  estimated_effort: "1-2 hours"

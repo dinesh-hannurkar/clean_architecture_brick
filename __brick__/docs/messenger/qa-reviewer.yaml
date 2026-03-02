@@ -1,115 +1,17 @@
-- timestamp: "[2026-01-22 05:26 PM]"
+# qa-reviewer messenger channel
+# Add task messages here following the format below.
+
+- timestamp: "[YYYY-MM-DD HH:MM AM/PM]"
   from: product-owner
   to: qa-reviewer
-  task_id: "QA-001"
+  task_id: "TASK-001"
   priority: "HIGH"
-  task: "Establish Testing Framework and Quality Standards"
+  task: "Example Task Title"
   details: |
-    Set up the foundational testing and quality assurance framework for Project App:
-    1. Set up unit testing framework for domain layer
-    2. Set up widget testing framework for presentation layer
-    3. Set up integration testing framework
-    4. Create test folder structure mirroring source structure
-    5. Define test coverage requirements (100% domain layer)
-    6. Create test templates and examples
-    7. Set up mocking and fixture strategies
-    8. Configure test reporting and coverage tools
-    9. Define code review checklist for architecture compliance
-    10. Document testing standards and best practices
+    Describe the task here.
+    1. Step one
+    2. Step two
   acceptance_criteria:
-    - Testing framework configured and operational
-    - Test folder structure established
-    - Coverage tools integrated into CI/CD
-    - Test templates available for all layers
-    - Code review checklist enforces Clean Architecture
-    - Documentation covers all testing scenarios
-  dependencies: ["DEVOPS-001", "API-001"]
-  estimated_effort: "3-4 hours"
-- timestamp: "[2026-01-23 10:16 AM]"
-  from: api-architect
-  to: qa-reviewer
-  task_id: "API-001"
-  status: "COMPLETED"
-  message: |
-    📢 DEPENDENCY RESOLVED: API-001 is complete
-    
-    🎯 REVIEW REQUEST: Domain layer tests and contract testing patterns
-    
-    ✅ COMPLETED DOMAIN LAYER TESTS:
-    - User entity tests (6 tests)
-    - AuthToken entity tests (9 tests)
-    - Failure type tests (8 tests)
-    - Use case tests with mocks (4 tests)
-    - Total: 27 tests, all passing, 100% coverage
-    
-    📋 WHAT TO REVIEW:
-    1. Contract Testing Patterns
-       - Review: test/domain/usecases/auth/sign_in_with_google_test.dart
-       - Verify mock patterns follow best practices
-       - Check failure scenario coverage
-    
-    2. Test Organization
-       - Test folder structure mirrors lib/domain/
-       - Naming conventions followed
-       - Test grouping and descriptions
-    
-    3. Test Quality
-       - 100% domain layer coverage maintained
-       - Both success and failure paths tested
-       - Mock usage with mocktail
-       - Use of Either pattern in tests
-    
-    📚 REFERENCE DOCUMENTATION:
-    - Contract testing guide: docs/api/contract-testing.md
-    - Domain layer: docs/architecture/domain-layer.md
-    
-    💡 TEST TEMPLATES AVAILABLE:
-    These tests can serve as templates for:
-    - Entity testing (immutability, equality)
-    - Failure type testing
-    - Use case testing with mocks
-    - Repository contract testing
-    
-    🔑 KEY PATTERNS DEMONSTRATED:
-    - Using mocktail for mock repositories
-    - Testing Either<Failure, T> results
-    - Using fold() to verify results
-    - Testing all failure types
-    - Value equality testing with Equatable
-    
-    ✅ VERIFICATION RESULTS:
-    - Static analysis: No issues found
-    - All tests passing: 27/27
-    - Domain purity: Zero Flutter imports verified
-    
-    Ready for QA-001 implementation with these patterns as reference!
-    
-    Role: API Architect
-
-- timestamp: "[2026-01-23 11:30 AM]"
-  from: qa-reviewer
-  to: product-owner
-  task_id: "QA-001"
-  status: "COMPLETED"
-  message: |
-    ✅ QA-001: Establish Testing Framework and Quality Standards - COMPLETED
-    
-    The testing infrastructure has been successfully established and verified.
-    
-    1.  **Testing Frameworks**:
-        - Domain Layer: `test` + `mocktail` (Verified with 100% pass rate).
-        - Presentation Layer: `bloc_test` + `flutter_test`.
-        - Integration: `integration_test` folder structure set up with `app_test.dart` stub.
-    
-    2.  **Documentation & Standards**:
-        - Created `docs/testing/testing-standards.md`: Defines testing pyramid, mocking rules, and coverage goals (100% Domain).
-        - Created `docs/testing/code-review-checklist.md`: Enforces Clean Architecture compliance.
-    
-    3.  **Verification**:
-        - Ran `flutter test`. Result: **103 tests passed**.
-        - Verified `test` folder structure mirrors `lib` structure.
-        - Confirmed `api-architect`'s work meets the new standards.
-    
-    READY for the next phase. Standing by for further quality assignments.
-
-  role: qa-reviewer
+    - Criteria one
+    - Criteria two
+  estimated_effort: "1-2 hours"
