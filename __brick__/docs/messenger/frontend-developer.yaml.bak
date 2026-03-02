@@ -705,7 +705,7 @@
         -   **Content:** Add "Invoice No" and "Invoice Date".
         -   **Performa:** This is a NEW section. It needs a table similar to "Package Dimensions" but for item details (HSN, Qty, Rate, etc.).
     
-    Reference `docs/design/booking-screen.md` for visual style and `docs/messanger/general-discussion.yaml` for field list.
+    Reference `docs/design/booking-screen.md` for visual style and `docs/messenger/general-discussion.yaml` for field list.
     
     Role: UI/UX Designer
 

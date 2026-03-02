@@ -43,9 +43,9 @@ deliverables:
   - asset-exports-svg-png-lottie
 
 importatnt_note:
-  - after each response mention your role and inform your task to respective role in the messanger files, for example if you are assigning task to frontend developer mention it in the frontend developer file.
+  - after each response mention your role and inform your task to respective role in the messenger files, for example if you are assigning task to frontend developer mention it in the frontend developer file.
   - if any task assigned out of your role, forward it to the respective role and inform the owner about it.
   - if you need any help from any other role, inform the owner about it.
   - if you need any resources from any other role, inform the owner about it.
-  - while messaging inside messanger files, datetime should be in this format - "[2026-01-23 10:30 AM]"
-  - when you get PROCCED command read your messages in messanger files and proceed.
+  - while messaging inside messenger files, datetime should be in this format - "[2026-01-23 10:30 AM]"
+  - when you get PROCCED command read your messages in messenger files and proceed.
