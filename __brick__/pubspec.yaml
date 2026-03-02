@@ -1,5 +1,5 @@
 name: {{project_name}}
-description: A new Flutter project.
+description: {{app_description}}
 publish_to: "none"
 
 version: 0.1.0+1
@@ -62,9 +62,3 @@ flutter:
   # assets:
   #   - assets/images/
   #   - assets/icons/
-
-  # Add custom fonts here (optional if using google_fonts):
-  # fonts:
-  #   - family: YourFont
-  #     fonts:
-  #       - asset: assets/fonts/YourFont-Regular.ttf

@@ -1,46 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:{{project_name}}/core/presentation/theme/app_colors.dart';
-import 'package:{{project_name}}/core/presentation/theme/app_spacing.dart';
+import 'package:{{project_name}}/core/presentation/theme/app_text_styles.dart';
 
+/// Splash screen shown while the app initializes.
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [AppColors.primary, AppColors.primaryDark],
-          ),
-        ),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // Logo
-              Image.asset(
-                'assets/images/logo.png',
-                height: 80,
-                errorBuilder: (context, error, stackTrace) {
-                  return const Icon(
-                    Icons.rocket_launch,
-                    size: 100,
-                    color: Colors.white,
-                  );
-                },
-              ),
-              const SizedBox(height: AppSpacing.xxl),
-              const CircularProgressIndicator(
+      backgroundColor: AppColors.primary,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // App logo placeholder — replace with your actual logo
+            const Icon(
+              Icons.rocket_launch_rounded,
+              size: 72,
+              color: Colors.white,
+            ),
+            const SizedBox(height: 24),
+            Text(
+              '{{app_display_name}}',
+              style: AppTextStyles.headlineLarge.copyWith(
                 color: Colors.white,
-                strokeWidth: 3,
+                fontWeight: FontWeight.bold,
               ),
-            ],
-          ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'Loading...',
+              style: AppTextStyles.bodyMedium.copyWith(color: Colors.white70),
+            ),
+          ],
         ),
       ),
     );

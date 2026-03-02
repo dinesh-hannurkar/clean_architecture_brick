@@ -1,17 +1,48 @@
 name: app_architecture
-description: A highly scalable, clean architecture Flutter starter template with pre-configured CI/CD, documentation, AI rules, and environment handling.
-version: 0.1.0+3
+description: A highly scalable, clean architecture Flutter starter template with pre-configured CI/CD, documentation, AI roles, and environment handling.
+version: 0.1.0+7
 environment:
   mason: ">=0.1.0-dev.51 <1.0.0"
 
 vars:
   project_name:
     type: string
-    description: "The name of your new Flutter project (e.g., my_awesome_app)"
+    description: "Flutter package name (snake_case, e.g. my_awesome_app)"
     default: "my_awesome_app"
-    prompt: "What is your project name?"
+    prompt: "📦 Package name (snake_case)?"
+
+  app_display_name:
+    type: string
+    description: "The display name shown on the device (e.g. My App)"
+    default: "My App"
+    prompt: "📱 App display name (shown on device)?"
+
+  app_description:
+    type: string
+    description: "Short description of your app"
+    default: "A new Flutter application."
+    prompt: "📝 App description?"
+
   org_name:
     type: string
-    description: "The organization name (e.g., com.example)"
+    description: "Organization/bundle ID prefix (e.g. com.example)"
     default: "com.example"
-    prompt: "What is your organization name?"
+    prompt: "🏢 Organization name (e.g. com.example)?"
+
+  primary_color:
+    type: string
+    description: "Primary brand color as 6-digit hex (without #, e.g. 0467B0)"
+    default: "0467B0"
+    prompt: "🎨 Primary brand color hex (6 digits, e.g. 0467B0)?"
+
+  secondary_color:
+    type: string
+    description: "Secondary brand color as 6-digit hex (without #, e.g. 022B4A)"
+    default: "022B4A"
+    prompt: "🎨 Secondary brand color hex (6 digits, e.g. 022B4A)?"
+
+  author_name:
+    type: string
+    description: "Your name or team name (used in docs)"
+    default: "Your Team"
+    prompt: "👤 Author / team name?"
