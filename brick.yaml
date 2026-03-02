@@ -2,7 +2,7 @@ name: app_architecture
 description: A highly scalable, clean architecture Flutter starter template with pre-configured CI/CD, documentation, AI rules, and environment handling.
 version: 0.1.0+1
 environment:
-  mason: ">=0.1.0-dev.51 <0.1.0"
+  mason: ">=0.1.0-dev.51 <1.0.0"
 
 vars:
   project_name:
