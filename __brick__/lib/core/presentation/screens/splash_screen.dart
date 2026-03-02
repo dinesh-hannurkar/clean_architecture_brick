@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:{{project_name}}/core/presentation/theme/app_colors.dart';
-import 'package:{{project_name}}/core/presentation/theme/app_text_styles.dart';
 
 /// Splash screen shown while the app initializes.
 class SplashScreen extends StatelessWidget {
@@ -8,6 +7,8 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
     return Scaffold(
       backgroundColor: AppColors.primary,
       body: Center(
@@ -23,7 +24,7 @@ class SplashScreen extends StatelessWidget {
             const SizedBox(height: 24),
             Text(
               '{{app_display_name}}',
-              style: AppTextStyles.headlineLarge.copyWith(
+              style: textTheme.headlineLarge?.copyWith(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
               ),
@@ -31,7 +32,7 @@ class SplashScreen extends StatelessWidget {
             const SizedBox(height: 8),
             Text(
               'Loading...',
-              style: AppTextStyles.bodyMedium.copyWith(color: Colors.white70),
+              style: textTheme.bodyMedium?.copyWith(color: Colors.white70),
             ),
           ],
         ),
