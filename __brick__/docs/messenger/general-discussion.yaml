@@ -192,15 +192,15 @@
   message: |
     ✅ INTERNATIONAL BOOKING FLOW COMPLETED
     
-    The dedicated temporary booking flow for international shipments is now fully implemented and integrated.
+    The dedicated temporary task flow for international shipments is now fully implemented and integrated.
     
     📦 SUMMARY:
-    - Data Layer: InternationalTempBookingRequest DTO implemented.
-    - Domain Layer: CreateIntlTempBooking use case created.
-    - Presentation: BookingBloc updated and UI integrated in InternationalBookingScreen.
+    - Data Layer: InternationalTempTaskRequest DTO implemented.
+    - Domain Layer: CreateIntlTempTask use case created.
+    - Presentation: TaskBloc updated and UI integrated in InternationalTaskScreen.
     - Quality: Lint errors fixed and unit tests updated with 100% logic coverage.
     
-    This unblocks the end-to-end international shipping flow verification.
+    This unblocks the end-to-end international feature flow verification.
     
     Role: API Architect
 
@@ -210,7 +210,7 @@
   message: |
     🚀 INTERNATIONAL BULK BOOKING PLANNING COMPLETE
     
-    I've analyzed the existing domestic bulk booking and international single booking implementations and distributed work for the International Bulk Booking feature.
+    I've analyzed the existing domestic bulk task and international single task implementations and distributed work for the International Bulk Task feature.
     
     📋 WORK DISTRIBUTED:
     - **UI/UX Designer** (UX-012): Design international bulk summary UI
@@ -222,7 +222,7 @@
     - `task.md`: Detailed task breakdown for all roles
     - `implementation_plan.md`: Technical specification with code-level changes
     
-    ⚠️ NOTE: International bulk booking API endpoints not yet provided. Backend implementation will use mock data initially.
+    ⚠️ NOTE: International bulk task API endpoints not yet provided. Backend implementation will use mock data initially.
     
     All roles can now proceed with their assigned tasks in parallel.
     
@@ -238,9 +238,9 @@
     ✅ BE-INTL-BULK-001: Data layer implementation (Backend Engineer)
     
     **DELEGATED TO FRONTEND DEVELOPER**:
-    🔄 FE-INTL-BULK-001: International Bulk Booking Summary Screen
+    🔄 FE-INTL-BULK-001: International Bulk Task Summary Screen
     🔄 FE-INTL-BULK-002: International Bulk Payment Screen  
-    🔄 FE-INTL-BULK-003: BookingBloc integration
+    🔄 FE-INTL-BULK-003: TaskBloc integration
     
     **PENDING**:
     ⏳ UX-012: UI design (UI/UX Designer)
@@ -258,20 +258,20 @@
   message: |
     ✅ INTERNATIONAL BULK BOOKING FLOW COMPLETED
     
-    The bulk temporary booking flow for international shipments is now fully implemented.
+    The bulk temporary task flow for international shipments is now fully implemented.
     
     📦 SUMMARY:
-    - Data Layer: IntlBulkTempBookingResponse DTO with proper JSON serialization.
-    - Domain Layer: CreateIntlBulkTempBooking use case created.
-    - Presentation: BookingBloc handler extracts temp IDs and total amount from API response.
-    - Testing: All unit tests passing (14/14) with bulk booking mock integrated.
+    - Data Layer: IntlBulkTempTaskResponse DTO with proper JSON serialization.
+    - Domain Layer: CreateIntlBulkTempTask use case created.
+    - Presentation: TaskBloc handler extracts temp IDs and total amount from API response.
+    - Testing: All unit tests passing (14/14) with bulk task mock integrated.
     
     📊 KEY FEATURES:
-    - Accepts array of booking requests in single API call
-    - Parses individual temp IDs from success_bookings array
+    - Accepts array of task requests in single API call
+    - Parses individual temp IDs from success_tasks array
     - Aggregates total_amount for payment processing
-    - Handles error_bookings for partial failures
+    - Handles error_tasks for partial failures
     
-    This completes the international booking API suite (single + bulk flows).
+    This completes the international task API suite (single + bulk flows).
     
     Role: API Architect

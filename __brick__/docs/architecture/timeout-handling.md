@@ -22,7 +22,7 @@ The application now has comprehensive timeout and error handling with user-frien
 
 ### 4. Repository Layer
 - Maps TimeoutException → TimeoutFailure
-- Example in: `features/shipping/data/repositories/shipping_repository_impl.dart`
+- Example in: `features/your_feature/data/repositories/feature_repository_impl.dart`
 
 ```dart
 try {

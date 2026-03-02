@@ -88,19 +88,19 @@
   task_id: "API-014"
   status: "COMPLETED"
   message: |
-    ✅ API-014: International Temp Booking Flow - COMPLETED
+    ✅ API-014: International Temp Task Flow - COMPLETED
     
-    Successfully established the architecture and implementation for international temporary bookings.
+    Successfully established the architecture and implementation for international temporary tasks.
     
     📋 DELIVERABLES:
-    - InternationalTempBookingRequest DTO (lib/features/shipping/data/models/)
-    - CreateIntlTempBooking Use Case (lib/features/shipping/domain/usecases/)
-    - ShippingRepository interface and implementation updates
-    - BookingBloc event/state/handler for international flow
-    - InternationalBookingScreen UI integration and footer logic
+    - InternationalTempTaskRequest DTO (lib/features/feature/data/models/)
+    - CreateIntlTempTask Use Case (lib/features/feature/domain/usecases/)
+    - FeatureRepository interface and implementation updates
+    - TaskBloc event/state/handler for international flow
+    - InternationalTaskScreen UI integration and footer logic
     
     ✅ VERIFICATION:
-    - Unit tests updated in BookingBloc (mocked new use case)
+    - Unit tests updated in TaskBloc (mocked new use case)
     - Lint errors resolved in presentation layer
     - Dynamic footer visibility verified
     
@@ -113,26 +113,26 @@
   task_id: "API-015"
   status: "COMPLETED"
   message: |
-    ✅ API-015: International Bulk Temp Booking Flow - COMPLETED
+    ✅ API-015: International Bulk Temp Task Flow - COMPLETED
     
-    Successfully implemented bulk booking architecture for international shipments.
+    Successfully implemented bulk task architecture for international shipments.
     
     📋 DELIVERABLES:
-    - IntlBulkTempBookingResponse DTO (lib/features/shipping/data/models/)
-    - CreateIntlBulkTempBooking Use Case (lib/features/shipping/domain/usecases/)
-    - ShippingRepository interface and implementation updates
-    - BookingBloc event/state/handler for bulk international flow
-    - Response parsing logic to extract temp IDs from success_bookings array
+    - IntlBulkTempTaskResponse DTO (lib/features/feature/data/models/)
+    - CreateIntlBulkTempTask Use Case (lib/features/feature/domain/usecases/)
+    - FeatureRepository interface and implementation updates
+    - TaskBloc event/state/handler for bulk international flow
+    - Response parsing logic to extract temp IDs from success_tasks array
     
     ✅ VERIFICATION:
     - Unit tests passing (14/14)
-    - Bulk booking mock added to test suite
+    - Bulk task mock added to test suite
     - Response aggregation verified (temp IDs + total amount)
     
     📊 API CONTRACT:
-    - Endpoint: POST /portal/intl/temp-bulk-booking/
-    - Request: Array of InternationalTempBookingRequest
-    - Response: success_bookings[], error_bookings[], total_amount
+    - Endpoint: POST /portal/intl/temp-bulk-task/
+    - Request: Array of InternationalTempTaskRequest
+    - Response: success_tasks[], error_tasks[], total_amount
     
     🕐 ACTUAL EFFORT: 1.5 hours
     
@@ -142,20 +142,20 @@
   to: api-architect
   task_id: "API-INTL-BULK-001"
   priority: "HIGH"
-  task: "Define International Bulk Booking Domain Contracts"
+  task: "Define International Bulk Task Domain Contracts"
   details: |
-    Define use cases and repository interfaces for International Bulk Booking.
+    Define use cases and repository interfaces for International Bulk Task.
     
     **Files to Create**:
-    - `lib/features/shipping/domain/usecases/get_international_bulk_rates.dart`
-    - `lib/features/shipping/domain/usecases/init_intl_bulk_booking_payment.dart`
+    - `lib/features/feature/domain/usecases/get_international_bulk_rates.dart`
+    - `lib/features/feature/domain/usecases/init_intl_bulk_task_payment.dart`
     
     **Files to Modify**:
-    - `lib/features/shipping/domain/repositories/shipping_repository.dart`
+    - `lib/features/feature/domain/repositories/feature_repository.dart`
     
     **Use Cases**:
     1. `GetInternationalBulkRates`: Batch fetch rates for multiple international orders
-    2. `InitIntlBulkBookingPayment`: Initialize payment for bulk international bookings
+    2. `InitIntlBulkTaskPayment`: Initialize payment for bulk international tasks
     
     **Repository Methods**:
     ```dart
@@ -164,7 +164,7 @@
     );
     
     Future<Either<Failure, PaymentInitResult>> initInternationalBulkPayment(
-      List<int> tempBookingIds,
+      List<int> tempTaskIds,
       String paymentMethod,
     );
     ```
@@ -183,16 +183,16 @@
   task_id: "API-INTL-BULK-001"
   status: "COMPLETED"
   message: |
-    ✅ DOMAIN CONTRACTS DEFINED: International Bulk Booking
+    ✅ DOMAIN CONTRACTS DEFINED: International Bulk Task
     
     📦 DELIVERABLES:
-    1. Created `InitIntlBulkBookingPayment` use case
-    2. Created `InitIntlBulkPaymentParams` entity with default bookingType='INTERNATIONAL BULK'
-    3. Updated `ShippingRepository` interface with `initIntlBulkBookingPayment()` method
+    1. Created `InitIntlBulkTaskPayment` use case
+    2. Created `InitIntlBulkPaymentParams` entity with default taskType='INTERNATIONAL BULK'
+    3. Updated `FeatureRepository` interface with `initIntlBulkTaskPayment()` method
     
     📝 NOTES:
-    - Reusing existing `CreateIntlTempBooking` use case in a loop for bulk temp booking creation
-    - No dedicated bulk temp booking use case needed - keeps domain clean
+    - Reusing existing `CreateIntlTempTask` use case in a loop for bulk temp task creation
+    - No dedicated bulk temp task use case needed - keeps domain clean
     
     ✅ READY FOR: Backend Engineer to implement data layer
     

@@ -311,9 +311,9 @@
   task_id: "API-014"
   status: "COMPLETED"
   message: |
-    ✅ API-014 COMPLETED: International Temp Booking Flow
+    ✅ API-014 COMPLETED: International Temp Task Flow
     
-    All layers (Data, Domain, Presentation) for international temporary bookings have been implemented and verified.
+    All layers (Data, Domain, Presentation) for international temporary tasks have been implemented and verified.
     
     ✓ DTO & Contracts defined
     ✓ Use Case & Repository bridge implemented
@@ -332,7 +332,7 @@
   message: |
     ✅ Work Secured: International & Bulk Payment Enhancements
     
-    All latest updates for International Booking logic and the new Bulk Payment flow have been committed. 
+    All latest updates for International Task logic and the new Bulk Payment flow have been committed. 
     The repository is in a stable state for the next phase.
     
     Role: Version Control Owner
@@ -342,17 +342,17 @@
   task_id: "API-015"
   status: "COMPLETED"
   message: |
-    ✅ API-015 COMPLETED: International Bulk Temp Booking Flow
+    ✅ API-015 COMPLETED: International Bulk Temp Task Flow
     
-    Bulk booking architecture for international shipments is now complete.
+    Bulk task architecture for international shipments is now complete.
     
-    ✓ Data Layer: IntlBulkTempBookingResponse DTO implemented
-    ✓ Domain Layer: CreateIntlBulkTempBooking use case created
-    ✓ Presentation: BookingBloc updated with bulk booking handler
-    ✓ Response Parsing: Temp IDs extracted from success_bookings array
+    ✓ Data Layer: IntlBulkTempTaskResponse DTO implemented
+    ✓ Domain Layer: CreateIntlBulkTempTask use case created
+    ✓ Presentation: TaskBloc updated with bulk task handler
+    ✓ Response Parsing: Temp IDs extracted from success_tasks array
     ✓ Testing: 100% test coverage with mocks
     
-    This enables users to submit multiple international bookings in a single
+    This enables users to submit multiple international tasks in a single
     API request, with aggregated payment data for streamlined processing.
     
     Ready for QA review and integration testing.
@@ -364,9 +364,9 @@
   task_id: "VCS-017"
   status: "COMPLETED"
   message: |
-    ✅ Work Secured: International Bulk Booking and Sync
+    ✅ Work Secured: International Bulk Task and Sync
     
-    All latest updates for international bulk temp bookings and application-wide module synchronization have been committed. 
+    All latest updates for international bulk temp tasks and application-wide module synchronization have been committed. 
     The repository on 'develop' is clean and ready for the next phase of development.
     
     Role: Version Control Owner

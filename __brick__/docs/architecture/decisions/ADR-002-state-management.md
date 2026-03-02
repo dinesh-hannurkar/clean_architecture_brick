@@ -38,5 +38,5 @@ Chosen option: **BLoC (flutter_bloc)**, because it perfectly aligns with Clean A
 
 ### BLoC (Selected)
 - Good: Scalable and predictable.
-- Good: Excellent for complex flows (like multi-step booking forms).
+- Good: Excellent for complex flows (like multi-step wizard forms).
 - Bad: Higher initial development cost per feature.

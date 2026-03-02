@@ -29,11 +29,11 @@
   to: ui-ux-designer
   task_id: "UX-012"
   priority: "HIGH"
-  task: "Design International Bulk Booking Summary UI"
+  task: "Design International Bulk Task Summary UI"
   details: |
-    Design the UI specification for International Bulk Booking Summary Screen.
+    Design the UI specification for International Bulk Task Summary Screen.
     
-    **Context**: Domestic bulk booking is complete. Now we need the international variant.
+    **Context**: Domestic bulk task is complete. Now we need the international variant.
     
     **Requirements**:
     1. Adapt existing domestic bulk summary layout for international orders
@@ -41,7 +41,7 @@
     3. Design international rate breakdown display (FSC, GST, Base Rate specific to international)
     4. Ensure bulk pincode sheet works for international addresses
     
-    Reference the existing domestic bulk booking screens and international single booking design.
+    Reference the existing domestic bulk task screens and international single task design.
   acceptance_criteria:
     - Design mockup shows international order cards with destination country
     - Rate breakdown section clearly displays international freight components

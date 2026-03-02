@@ -213,18 +213,18 @@
   task_id: "API-014"
   status: "COMPLETED"
   message: |
-    📢 UI INTEGRATED: International Booking Flow is ready for testing.
+    📢 UI INTEGRATED: International Task Flow is ready for testing.
     
-    I have integrated the International Temp Booking API into the InternationalBookingScreen.
+    I have integrated the International Temp Task API into the InternationalTaskScreen.
     
     📦 WHAT WAS DONE:
-    1. Integrated CreateIntlTempBookingRequested event in "Proceed to Pay" button.
+    1. Integrated CreateIntlTempTaskRequested event in "Proceed to Pay" button.
     2. Added BlocListener to handle navigation to Payment Summary on success.
     3. Implemented sticky footer visibility logic (hides when rate is zero).
     4. Cleaned up lint errors and updated unit tests.
     
     🎯 READY FOR TESTING:
-    - Please verify the navigation flow and state updates in the international booking screen.
+    - Please verify the navigation flow and state updates in the international task screen.
     
     Role: API Architect
 - timestamp: "[2026-02-06 04:22 PM]"
@@ -232,21 +232,21 @@
   to: frontend-developer
   task_id: "FE-INTL-BULK-001"
   priority: "HIGH"
-  task: "Implement International Bulk Booking Summary Screen"
+  task: "Implement International Bulk Task Summary Screen"
   details: |
-    Create the International Bulk Booking Summary Screen following the existing domestic pattern.
+    Create the International Bulk Task Summary Screen following the existing domestic pattern.
     
     **Files to Create**:
-    - `lib/features/shipping/presentation/screens/international_bulk_booking_summary_screen.dart`
+    - `lib/features/feature/presentation/screens/international_bulk_task_summary_screen.dart`
     
-    **Pattern**: Mirror `BulkBookingSummaryScreen` but for international orders
+    **Pattern**: Mirror `BulkTaskSummaryScreen` but for international orders
     
     **Key Changes**:
-    - Accept only international orders (shippingType == 'International')
+    - Accept only international orders (featureType == 'International')
     - Display destination country in order cards
     - Call `FetchInternationalBulkRates` event instead of `FetchBulkRates`
     - Show international rate breakdown (FSC, GST, base rate)
-    - Navigate to `InternationalBulkBookingPaymentScreen` on proceed
+    - Navigate to `InternationalBulkTaskPaymentScreen` on proceed
     
     Refer to implementation_plan.md for detailed specifications.
   acceptance_criteria:
@@ -266,16 +266,16 @@
     Create the International Bulk Payment Screen.
     
     **Files to Create**:
-    - `lib/features/shipping/presentation/screens/international_bulk_booking_payment_screen.dart`
+    - `lib/features/feature/presentation/screens/international_bulk_task_payment_screen.dart`
     
-    **Pattern**: Follow `BulkBookingPaymentScreen` structure
+    **Pattern**: Follow `BulkTaskPaymentScreen` structure
     
     **Key Changes**:
     - Reuse `bulk_payment_widgets.dart`
     - Display total international freight cost
-    - Trigger `StartInternationalBulkBookingPayment` event
+    - Trigger `StartInternationalBulkTaskPayment` event
   acceptance_criteria:
-    - Payment method selection works (Wallet/Razorpay)
+    - Payment method selection works (Wallet/Payment Gateway)
     - Total amount displays correctly
     - Payment initialization triggered on selection
   dependencies: ["FE-INTL-BULK-001", "FE-INTL-BULK-003"]
@@ -285,22 +285,22 @@
   to: frontend-developer
   task_id: "FE-INTL-BULK-003"
   priority: "HIGH"
-  task: "Update BookingBloc for International Bulk"
+  task: "Update TaskBloc for International Bulk"
   details: |
-    Extend BookingBloc to support international bulk booking events.
+    Extend TaskBloc to support international bulk task events.
     
     **Files to Modify**:
-    - `lib/features/shipping/presentation/bloc/booking/booking_event.dart`
-    - `lib/features/shipping/presentation/bloc/booking/booking_bloc.dart`
-    - `lib/features/shipping/presentation/bloc/booking/booking_state.dart` (if needed)
+    - `lib/features/feature/presentation/bloc/task/task_event.dart`
+    - `lib/features/feature/presentation/bloc/task/task_bloc.dart`
+    - `lib/features/feature/presentation/bloc/task/task_state.dart` (if needed)
     
     **Add Events**:
-    - `FetchInternationalBulkRates` (with List<BookingRequest>)
-    - `StartInternationalBulkBookingPayment` (with tempBookingIds, paymentMethod)
+    - `FetchInternationalBulkRates` (with List<TaskRequest>)
+    - `StartInternationalBulkTaskPayment` (with tempTaskIds, paymentMethod)
     
     **Add Handlers**:
     - `_onFetchInternationalBulkRates`: Loop through requests, call use case, aggregate results
-    - `_onStartInternationalBulkBookingPayment`: Initialize payment for bulk international
+    - `_onStartInternationalBulkTaskPayment`: Initialize payment for bulk international
     
     Refer to implementation_plan.md for code structure.
   acceptance_criteria:
@@ -314,20 +314,20 @@
   from: backend-engineer
   to: frontend-developer
   message: |
-    🎉 BACKEND READY: International Bulk Booking
+    🎉 BACKEND READY: International Bulk Task
     
     The domain and data layers are complete. You can now proceed with:
-    - `FE-INTL-BULK-001`: International Bulk Booking Summary Screen
+    - `FE-INTL-BULK-001`: International Bulk Task Summary Screen
     - `FE-INTL-BULK-002`: International Bulk Payment Screen
-    - `FE-INTL-BULK-003`: BookingBloc events and handlers
+    - `FE-INTL-BULK-003`: TaskBloc events and handlers
     
     **Available Use Cases**:
-    - `CreateIntlTempBooking` (call in loop for each order)
-    - `InitIntlBulkBookingPayment` (for payment initialization)
+    - `CreateIntlTempTask` (call in loop for each order)
+    - `InitIntlBulkTaskPayment` (for payment initialization)
     
     **Event Structure** (already partially added):
-    - `CreateIntlBulkTempBookingRequested`
-    - `InitIntlBulkBookingPaymentRequested`
+    - `CreateIntlBulkTempTaskRequested`
+    - `InitIntlBulkTaskPaymentRequested`
     
     Refer to `implementation_plan.md` for detailed specs.
     
@@ -352,7 +352,7 @@
     3. Global Context Support:
        - Re-introduced `GlobalKey<ScaffoldMessengerState>` for safe, context-less SnackBar operations.
     4. App-Wide Standardization:
-       - Replaced direct `ScaffoldMessenger` calls in `HistoryScreen`, `BookingSummaryScreen`, `PaymentScreen`, and `DebugUtils` with reusable helpers.
+       - Replaced direct `ScaffoldMessenger` calls in `HistoryScreen`, `TaskSummaryScreen`, `PaymentScreen`, and `DebugUtils` with reusable helpers.
     
     ✓ VERIFICATION:
     - Context-safe operations verified (fixes Activation error).

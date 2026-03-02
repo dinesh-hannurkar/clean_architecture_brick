@@ -106,13 +106,13 @@
   to: backend-engineer
   task_id: "BE-INTL-BULK-001"
   priority: "HIGH"
-  task: "Implement International Bulk Booking Data Layer"
+  task: "Implement International Bulk Task Data Layer"
   details: |
-    Implement data sources and repository for International Bulk Booking.
+    Implement data sources and repository for International Bulk Task.
     
     **Files to Modify**:
-    - `lib/features/shipping/data/datasources/shipping_remote_data_source.dart`
-    - `lib/features/shipping/data/repositories/shipping_repository_impl.dart`
+    - `lib/features/feature/data/datasources/feature_remote_data_source.dart`
+    - `lib/features/feature/data/repositories/feature_repository_impl.dart`
     
     **Data Source Methods**:
     ```dart
@@ -121,7 +121,7 @@
     );
     
     Future<PaymentInitDto> initInternationalBulkPayment(
-      List<int> tempBookingIds,
+      List<int> tempTaskIds,
       String paymentMethod,
     );
     ```
@@ -148,9 +148,9 @@
   to: backend-engineer
   task_id: "BE-INTL-BULK-002"
   priority: "MEDIUM"
-  task: "Add Integration Tests for International Bulk Booking"
+  task: "Add Integration Tests for International Bulk Task"
   details: |
-    Create comprehensive integration tests for the international bulk booking data layer.
+    Create comprehensive integration tests for the international bulk task data layer.
     
     **Tests to Create**:
     - Repository tests for `getInternationalBulkRates`
@@ -158,7 +158,7 @@
     - Mock data source and verify proper error mapping
     - Test batch processing logic
     
-    Follow existing test patterns in `test/features/shipping/data/`.
+    Follow existing test patterns in `test/features/feature/data/`.
   acceptance_criteria:
     - All tests pass
     - Edge cases covered (empty list, single order, network failure)
@@ -172,16 +172,16 @@
   task_id: "BE-INTL-BULK-001"
   status: "COMPLETED"
   message: |
-    ✅ DATA LAYER IMPLEMENTED: International Bulk Booking
+    ✅ DATA LAYER IMPLEMENTED: International Bulk Task
     
     📦 DELIVERABLES:
-    1. Added `initIntlBulkBookingPayment()` to `ShippingRemoteDataSource` interface
+    1. Added `initIntlBulkTaskPayment()` to `FeatureRemoteDataSource` interface
     2. Implemented data source method calling `/portal/intl/init-international-payments/`
     3. Implemented repository method with proper error mapping
     
     📝 ENDPOINT USED:
     - Same endpoint as single international: `/portal/intl/init-international-payments/`
-    - API will differentiate based on `booking_type: 'INTERNATIONAL BULK'`
+    - API will differentiate based on `task_type: 'INTERNATIONAL BULK'`
     
     ✅ READY FOR: Frontend Developer to integrate BLoC and UI
     
