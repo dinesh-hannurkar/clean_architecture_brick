@@ -1,0 +1,192 @@
+name: Release Automation
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  validate-tag:
+    name: Validate Release Tag
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Validate Semantic Version
+        run: |
+          TAG=${GITHUB_REF#refs/tags/}
+          if ! [[ $TAG =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Error: Tag must follow semantic versioning (v1.0.0)"
+            exit 1
+          fi
+          echo "TAG=$TAG" >> $GITHUB_ENV
+          
+  build-android-release:
+    name: Build Android Release
+    runs-on: ubuntu-latest
+    needs: validate-tag
+    timeout-minutes: 40
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+          
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.30.1'
+          channel: 'stable'
+          cache: true
+          
+      - name: Install Dependencies
+        run: flutter pub get
+        
+      - name: Create key.properties (Release)
+        run: |
+          cat > android/key.properties << EOF
+          storePassword=${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}
+          keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}
+          storeFile=${{ github.workspace }}/keystore.jks
+          EOF
+          
+      - name: Decode Keystore
+        run: |
+          echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 --decode > keystore.jks
+          
+      - name: Build Android App Bundle (AAB)
+        run: |
+          flutter build appbundle --release --obfuscate \
+            --split-debug-info=build/app/outputs/symbols \
+            --dart-define=RAZORPAY_KEY_ID=${{ secrets.RAZORPAY_KEY_ID }} \
+            --dart-define=RAZORPAY_KEY_SECRET=${{ secrets.RAZORPAY_KEY_SECRET }} \
+            --dart-define=API_BASE_URL=${{ secrets.API_BASE_URL }}
+        
+      - name: Build Android APK
+        run: |
+          flutter build apk --release --split-per-abi --obfuscate \
+            --split-debug-info=build/app/outputs/symbols \
+            --dart-define=RAZORPAY_KEY_ID=${{ secrets.RAZORPAY_KEY_ID }} \
+            --dart-define=RAZORPAY_KEY_SECRET=${{ secrets.RAZORPAY_KEY_SECRET }} \
+            --dart-define=API_BASE_URL=${{ secrets.API_BASE_URL }}
+        
+      - name: Upload AAB to Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-aab
+          path: build/app/outputs/bundle/release/app-release.aab
+          retention-days: 30
+          
+      - name: Upload APK to Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-apk
+          path: build/app/outputs/flutter-apk/*.apk
+          retention-days: 30
+
+      - name: Upload Debug Symbols
+        uses: actions/upload-artifact@v4
+        with:
+          name: debug-symbols
+          path: build/app/outputs/symbols
+          retention-days: 30
+          
+  build-ios-release:
+    name: Build iOS Release
+    runs-on: macos-latest
+    needs: validate-tag
+    timeout-minutes: 40
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.30.1'
+          channel: 'stable'
+          cache: true
+          
+      - name: Install Dependencies
+        run: flutter pub get
+        
+      # Note: Actual iOS signing requires certificates and provisioning profiles
+      # This is a placeholder for future iOS release configuration
+      - name: Build iOS Release (Placeholder)
+        run: |
+          echo "iOS release build requires:"
+          echo "1. Apple Developer certificates"
+          echo "2. Provisioning profiles"
+          echo "3. App Store Connect API keys"
+          echo "Configure these secrets in GitHub repository settings"
+          
+  create-release:
+    name: Create GitHub Release
+    runs-on: ubuntu-latest
+    needs: [build-android-release, build-ios-release]
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          
+      - name: Download Android AAB
+        uses: actions/download-artifact@v4
+        with:
+          name: release-aab
+          path: ./artifacts
+          
+      - name: Download Android APK
+        uses: actions/download-artifact@v4
+        with:
+          name: release-apk
+          path: ./artifacts
+          
+      - name: Generate Release Notes
+        id: changelog
+        run: |
+          TAG=${GITHUB_REF#refs/tags/}
+          PREV_TAG=$(git describe --tags --abbrev=0 $TAG^ 2>/dev/null || echo "")
+          
+          if [ -z "$PREV_TAG" ]; then
+            COMMITS=$(git log --pretty=format:"- %s (%h)" $TAG)
+          else
+            COMMITS=$(git log --pretty=format:"- %s (%h)" $PREV_TAG..$TAG)
+          fi
+          
+          echo "RELEASE_NOTES<<EOF" >> $GITHUB_ENV
+          echo "## Changes in $TAG" >> $GITHUB_ENV
+          echo "" >> $GITHUB_ENV
+          echo "$COMMITS" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+          
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: Release ${{ github.ref_name }}
+          body: ${{ env.RELEASE_NOTES }}
+          files: |
+            ./artifacts/*.aab
+            ./artifacts/*.apk
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+  # Future: Add Firebase App Distribution deployment
+  # deploy-firebase:
+  #   name: Deploy to Firebase App Distribution
+  #   runs-on: ubuntu-latest
+  #   needs: build-android-release
+  #   steps:
+  #     - name: Deploy to Firebase
+  #       run: echo "Configure Firebase App Distribution"

@@ -1,0 +1,17 @@
+name: app_architecture
+description: A highly scalable, clean architecture Flutter starter template with pre-configured CI/CD, documentation, AI rules, and environment handling.
+version: 0.1.0+1
+environment:
+  mason: ">=0.1.0-dev.51 <0.1.0"
+
+vars:
+  project_name:
+    type: string
+    description: "The name of your new Flutter project (e.g., my_awesome_app)"
+    default: "my_awesome_app"
+    prompt: "What is your project name?"
+  org_name:
+    type: string
+    description: "The organization name (e.g., com.example)"
+    default: "com.example"
+    prompt: "What is your organization name?"
